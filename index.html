@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 Meses de Amor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9c2ff;
+            color: #444;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #ff5e5e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #ff1e4d;
+        }
+
+        .surpresa {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: black;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .quiz {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        .quiz button {
+            background-color: #5e8bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+
+        .quiz button.correct {
+            background-color: green;
+        }
+
+        .quiz button.incorrect {
+            background-color: red;
+        }
+
+        .error-message {
+            font-size: 18px;
+            color: red;
+            margin-top: 10px;
+        }
+
+        .congrats-message {
+            font-size: 2em;
+            color: green;
+            margin-top: 20px;
+        }
+
+        .confetti {
+            font-size: 2em;
+            margin-top: 20px;
+            animation: confetti 2s infinite;
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(300px); }
+        }
+
+        #texto {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            font-size: 18px;
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1>Oii minha princesa! Feliz 8 meses de namoro! ❤️</h1>
+        <p>Hoje comemoramos 8 meses desde que começamos nossa história. Te amo muito!</p>
+        <button onclick="mostrarSurpresa()">Clique aqui para a surpresa!</button>
+        <div id="surpresa" class="surpresa">
+            <p>Você é meu orgulho, eu te amo! ❤️</p>
+        </div>
+    </div>
+
+    <div class="quiz">
+        <h2>Quiz do Amor! 💕</h2>
+        <p>Vamos ver o quanto você sabe sobre nosso relacionamento! 😄</p>
+
+        <p>1️⃣ Qual a data do nosso relacionamento?</p>
+        <button onclick="verificarResposta(this, true, 0)">14/07/24</button>
+        <button onclick="verificarResposta(this, false, 0)">21/04/24</button>
+
+        <div id="erro1" class="error-message"></div>
+
+        <p>2️⃣ Em qual plataforma nos conhecemos?</p>
+        <button onclick="verificarResposta(this, false, 1)">Instagram</button>
+        <button onclick="verificarResposta(this, false, 1)">WhatsApp</button>
+        <button onclick="verificarResposta(this, true, 1)">Discord</button>
+
+        <div id="erro2" class="error-message"></div>
+
+        <p>3️⃣ Quem é meu maior amor?</p>
+        <button onclick="verificarResposta(this, false, 2)">Alice</button>
+        <button onclick="verificarResposta(this, true, 2)">Flamengo</button>
+
+        <div id="erro3" class="error-message"></div>
+
+        <button onclick="mostrarResultado()" id="finalizar" style="margin-top: 20px; background-color: #ff9900; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Finalizar Quiz</button>
+
+        <div id="resultado" class="congrats-message"></div>
+        <div id="confetti" class="confetti"></div>
+    </div>
+
+    <button onclick="mostrarTexto()" style="background-color: #58a5f4; color: white; padding: 12px 24px; font-size: 18px; margin-top: 30px; border-radius: 5px; cursor: pointer;">Clique ali para ler o textinho ❤️</button>
+
+    <div id="texto">
+        <p>Oiiii meu amor, isso aqui deu trabalho, viu? Espero que tenha gostado, fiz com muito amor e carinho e até agora foi tudo que eu aprendi no curso, espero também que ao longo do tempo eu possa evoluir e fazer um site mais bonitinho pra você.</p>
+        <p>São 8 meses de muita felicidade, mesmo estando à distância, você faz meu mundo mais bonito e completo. Eu sonho com o dia em que poderemos nos encontrar, talvez até casar e construir uma família linda. A distância é só um detalhe, porque no fundo, meu amor por você só cresce a cada dia. Te amo muito, minha princesa, e estou ansioso para tudo o que o futuro nos reserva. ❤️</p>
+    </div>
+
+    <script>
+        let acertos = 0;
+        const totalPerguntas = 3;
+
+        function mostrarSurpresa() {
+            document.getElementById("surpresa").style.display = "block";
+        }
+
+        function verificarResposta(botao, correta, pergunta) {
+            if (correta) {
+                botao.classList.add("correct");
+                acertos++;
+            } else {
+                botao.classList.add("incorrect");
+                mostrarMensagemErro(pergunta);
+            }
+        }
+
+        function mostrarMensagemErro(pergunta) {
+            const mensagensErro = [
+                "Não acredito nisso! 😡",
+                "Meu Deus, como você errou? 🙁",
+                "Óbvio que o Flamengo né, iludida. 🙄"
+            ];
+            document.getElementById(`erro${pergunta}`).innerText = mensagensErro[pergunta];
+        }
+
+        function mostrarResultado() {
+            const percentual = (acertos / totalPerguntas) * 100;
+            let resultadoMensagem = `Você acertou ${percentual}% das perguntas.`;
+            if (percentual === 100) {
+                resultadoMensagem = `PARABÉNS, você acertou tudo!!! 🎉🎉🎉`;
+                document.getElementById("confetti").innerHTML = "🎉🎊🎈✨🎆";
+            }
+            document.getElementById("resultado").innerText = resultadoMensagem;
+        }
+
+        function mostrarTexto() {
+            document.getElementById("texto").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
